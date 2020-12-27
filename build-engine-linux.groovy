@@ -38,6 +38,10 @@ spec:
     value: "true"
     effect: NoSchedule
 
+  # Use root uid for volumes
+  securityContext:
+    fsGroup: 1000
+
   containers:
   - name: jnlp
 """
