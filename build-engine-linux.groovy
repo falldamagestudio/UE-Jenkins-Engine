@@ -52,6 +52,7 @@ spec:
 
     stage('Fetch Git repo dependencies') {
       steps {
+        sh "ls -al"
         sh "cd UE/Engine/Build/BatchFiles/Linux && ./Setup.sh"
       }
     }
