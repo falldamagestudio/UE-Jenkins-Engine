@@ -45,7 +45,7 @@ spec:
   containers:
   - name: jnlp
   - name: ue-jenkins-buildtools
-    image: ${UE_JENKINS_BUILDTOOLS_IMAGE}:${UE_JENKINS_BUILDTOOLS_IMAGE_TAG}
+    image: ${UE_JENKINS_BUILDTOOLS_LINUX_IMAGE}:${UE_JENKINS_BUILDTOOLS_LINUX_IMAGE_TAG}
 """
     }
   }
