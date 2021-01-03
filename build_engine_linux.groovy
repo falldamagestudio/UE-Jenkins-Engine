@@ -44,8 +44,12 @@ spec:
 
   containers:
   - name: jnlp
-  - name: ue-jenkins-buildtools
+  - name: ue-jenkins-buildtools-linux
     image: ${UE_JENKINS_BUILDTOOLS_LINUX_IMAGE}:${UE_JENKINS_BUILDTOOLS_LINUX_IMAGE_TAG}
+    # Add dummy command to prevent container from immediately exiting upon launch
+    command:
+    - cat
+    tty: true
 """
     }
   }
