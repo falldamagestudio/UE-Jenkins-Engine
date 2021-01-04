@@ -58,19 +58,18 @@ spec:
 
     stage('Fetch Git repo dependencies') {
       steps {
-        sh "ls -al"
-        sh "cd UE/Engine/Build/BatchFiles/Linux && ./Setup.sh"
+        container('ue-jenkins-buildtools-linux') {
+          sh "cd UE/Engine/Build/BatchFiles/Linux && ./Setup.sh"
+        }
       }
     }
     
-//    stage('Build Engine (Linux)') {
-//    
-//      steps {
-//
-//        sh "./Scripts/Linux/BuildEngine.sh"
-//
-//      }
-//    }
-
+    // stage('Build Engine (Linux)') {
+    //   steps {
+    //     container('ue-jenkins-buildtools-linux') {
+    //       sh "./Scripts/Linux/BuildEngine.sh"
+    //     }
+    //   }
+    // }
   }
 }
