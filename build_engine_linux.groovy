@@ -59,7 +59,7 @@ spec:
     stage('Fetch Git repo dependencies') {
       steps {
         container('ue-jenkins-buildtools-linux') {
-          sh "cd UE/Engine/Build/BatchFiles/Linux && ./Setup.sh"
+          sh "cd UE && ./Setup.sh"
         }
       }
     }
