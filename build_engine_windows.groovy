@@ -50,12 +50,6 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
-#  - name: ue-jenkins-buildtools-windows
-#    image: ${UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE}
-#    # Add dummy command to prevent container from immediately exiting upon launch
-#    command:
-#    - echo
-#    tty: true
 """
     }
   }
