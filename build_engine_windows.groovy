@@ -63,13 +63,13 @@ spec:
   stages {
 
     stage('Fetch Git repo dependencies') {
-/*
       steps {
+/*
         container('ue-jenkins-buildtools-windows') {
           sh "cd UE && ./Setup.bat"
         }
-      }
 */
+      }
     }
     
     // stage('Build Engine (Windows)') {
