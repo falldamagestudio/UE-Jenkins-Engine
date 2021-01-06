@@ -15,9 +15,9 @@ metadata:
 
 spec:
 
-  # Schedule this pod onto a node in the jenkins agent node pool
+  # Schedule this pod onto a node in the jenkins agent Linux node pool
   nodeSelector:
-    jenkins-agent-node-pool: "true"
+    jenkins-agent-linux-node-pool: "true"
 
   # Ensure this pod is not scheduled onto a node that already has another jenkins agent pod on it
   affinity:
@@ -31,9 +31,9 @@ spec:
             - jenkins-agent
         topologyKey: "kubernetes.io/hostname"
 
-  # Allow this pod to be scheduled onto nodes in the jenkins agent node pool
+  # Allow this pod to be scheduled onto nodes in the jenkins agent Linux node pool
   tolerations:
-  - key: jenkins-agent-node-pool
+  - key: jenkins-agent-linux-node-pool
     operator: Equal
     value: "true"
     effect: NoSchedule
