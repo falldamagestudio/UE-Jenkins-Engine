@@ -64,6 +64,7 @@ spec:
 
     stage('Fetch Git repo dependencies') {
       steps {
+          bat "echo hello"
 /*
         container('ue-jenkins-buildtools-windows') {
           sh "cd UE && ./Setup.bat"
