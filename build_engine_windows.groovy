@@ -69,7 +69,7 @@ spec:
         bat "echo hello"
 
         container('ue-jenkins-buildtools-windows') {
-          powershell "cd UE; & .\\Setup.bat"
+          powershell "cd UE; & .\\Setup.bat; if (\$\{LASTEXITCODE\} -ne 0) { throw \"Setup.bat failed\" }"
         }
 
       }
