@@ -50,6 +50,14 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
+  - name: ue-jenkins-buildtools-windows
+    image: ${UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE}
+    # Add dummy command to prevent container from immediately exiting upon launch
+    command:
+    - powershell
+    args:
+    - Start-Sleep
+      999999
 """
     }
   }
@@ -58,12 +66,12 @@ spec:
 
     stage('Fetch Git repo dependencies') {
       steps {
-          bat "echo hello"
-/*
+        bat "echo hello"
+
         container('ue-jenkins-buildtools-windows') {
-          sh "cd UE && ./Setup.bat"
+          powershell "cd UE; & .\\Setup.bat"
         }
-*/
+
       }
     }
     
