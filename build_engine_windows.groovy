@@ -75,13 +75,9 @@ spec:
 
     stage('Fetch Git repo dependencies') {
       steps {
-        bat "cd"
-
         container('ue-jenkins-buildtools-windows') {
-          bat "cd"
-          powershell "cd UE; & .\\Setup.bat; if (\${LASTEXITCODE} -ne 0) { throw \"Setup.bat failed\" }"
+          powershell "cd UE; & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe; if (\${LASTEXITCODE} -ne 0) { throw \"GitDependencies.exe failed\" }"
         }
-
       }
     }
     
