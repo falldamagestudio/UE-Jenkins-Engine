@@ -75,6 +75,8 @@ spec:
     stage('Fetch Git repo dependencies') {
       steps {
         container('ue-jenkins-buildtools-windows') {
+          powershell "get-item \"C:\\*\""
+          powershell "get-item \"C:\\BuildTools\\*\""
           powershell "\${env:ProgramFiles(x86)}"
           powershell "get-item \"\${env:ProgramFiles(x86)}\\*\""
           powershell "get-item \"\${env:ProgramFiles(x86)}\\Microsoft Visual Studio\\*\""
