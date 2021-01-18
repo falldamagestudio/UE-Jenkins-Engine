@@ -47,6 +47,9 @@ spec:
   securityContext:
     fsGroup: 1000
 
+  # Use short working directory to avoid problems with long paths on Windows
+  workingDir: C:\\W
+
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
@@ -66,9 +69,10 @@ spec:
 
     stage('Fetch Git repo dependencies') {
       steps {
-        bat "echo hello"
+        bat "cd"
 
         container('ue-jenkins-buildtools-windows') {
+          bat "cd"
           powershell "cd UE; & .\\Setup.bat; if (\$\{LASTEXITCODE\} -ne 0) { throw \"Setup.bat failed\" }"
         }
 
