@@ -73,7 +73,7 @@ spec:
 
         container('ue-jenkins-buildtools-windows') {
           bat "cd"
-          powershell "cd UE; & .\\Setup.bat; if (\$\{LASTEXITCODE\} -ne 0) { throw \"Setup.bat failed\" }"
+          powershell "cd UE; & .\\Setup.bat; if (\${LASTEXITCODE} -ne 0) { throw \"Setup.bat failed\" }"
         }
 
       }
