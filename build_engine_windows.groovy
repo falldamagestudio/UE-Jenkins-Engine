@@ -81,12 +81,13 @@ spec:
       }
     }
     
-    // stage('Build Engine (Windows)') {
-    //   steps {
-    //     container('ue-jenkins-buildtools-windows') {
-    //       sh "./Scripts/Windows/BuildEngine.ps1"
-    //     }
-    //   }
-    // }
+    stage('Build Engine (Windows)') {
+      steps {
+        container('ue-jenkins-buildtools-windows') {
+          powershell ".\\Scripts\\Windows\\BuildEngine.ps1"
+        }
+      }
+    }
+
   }
 }
