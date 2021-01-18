@@ -52,8 +52,12 @@ spec:
   - name: jnlp
     # Use Windows agent image
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
-    # Use short working directory to avoid problems with long paths on Windows
-    workingDir: C:\\W
+    # Use short working directory to avoid problems with long paths on Windows;
+    #  all other containers will use this same working dir as well
+    #  and the work folder for the pipeline script will become <WORKINGDIR>/workspace/<jobname>
+    #  -- and this path should be less than 50 characters in total on Windows
+    #  (or else building UE software will run into the 248/260 char path limits)
+    workingDir: C:\\J
 
   - name: ue-jenkins-buildtools-windows
     image: ${UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE}
