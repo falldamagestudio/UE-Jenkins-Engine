@@ -47,12 +47,14 @@ spec:
   securityContext:
     fsGroup: 1000
 
-  # Use short working directory to avoid problems with long paths on Windows
-  workingDir: C:\\W
-
   containers:
+
   - name: jnlp
+    # Use Windows agent image
     image: jenkins/inbound-agent:windowsservercore-ltsc2019
+    # Use short working directory to avoid problems with long paths on Windows
+    workingDir: C:\\W
+
   - name: ue-jenkins-buildtools-windows
     image: ${UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE}
     # Add dummy command to prevent container from immediately exiting upon launch
