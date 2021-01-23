@@ -80,12 +80,18 @@ spec:
         }
       }
     }
-    
+/*    
     stage('Build Engine (Windows)') {
       steps {
         container('ue-jenkins-buildtools-windows') {
           powershell ".\\Scripts\\Windows\\BuildEngine.ps1"
         }
+      }
+    }
+*/
+    stage('Upload Engine (Windows)') {
+      steps {
+        powershell ".\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${ENGINE_STORAGE_BUCKET_NAME} -BuildId ${GIT_COMMIT}"
       }
     }
 
