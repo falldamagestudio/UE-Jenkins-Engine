@@ -8,6 +8,11 @@ pipeline {
 	    // It enables incremental builds.
       workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-windows', readOnly: false)
 
+      // Provisioning a new Windows node, fetching the Windows Server Core base image,
+      //  and the MSVC build tools layers can take a long time.
+      // Allow for up to 30 minutes for this process to complete.
+      slaveConnectTimeout 1800
+
       yaml """
 metadata:
   labels:
