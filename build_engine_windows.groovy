@@ -91,7 +91,7 @@ spec:
 */
     stage('Upload Engine (Windows)') {
       steps {
-        powershell ".\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${ENGINE_STORAGE_BUCKET_NAME} -BuildId ${GIT_COMMIT}"
+        powershell ".\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}"
       }
     }
 

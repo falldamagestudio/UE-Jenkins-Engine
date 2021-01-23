@@ -14,8 +14,8 @@ function Upsync-EngineBuild {
 
     $LongtailLocation = "${PSScriptRoot}\longtail-win32-x64.exe"
     $EngineBuildAbsoluteLocation = "\\?\$(Resolve-Path ${EngineBuildLocation} -ErrorAction Stop)"
-    $VersionIndexURI = "gs://${CloudStorageBucket}/store/index/${EngineBuildId}.lvi"
-    $StorageURI = "gs://${CloudStorageBucket}/store"
+    $VersionIndexURI = "gs://${CloudStorageBucket}/engine-win64/index/${EngineBuildId}.lvi"
+    $StorageURI = "gs://${CloudStorageBucket}/engine-win64/storage"
 
     $Arguments = @(
         "upsync"
