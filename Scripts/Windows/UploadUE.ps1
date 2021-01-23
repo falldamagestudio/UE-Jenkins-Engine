@@ -5,7 +5,7 @@ param (
 
 . $PSScriptRoot\Upsync-EngineBuild.ps1
 
-$UELocation = "${PSScriptRoot}..\..\UE"
+$UELocation = "${PSScriptRoot}\..\..\UE"
 $EngineBuildLocation = "${UELocation}\LocalBuilds\Engine\Windows"
 $EngineBuildId = "engine-${BuildId}-win64"
 
