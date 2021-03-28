@@ -61,7 +61,7 @@ spec:
 
   - name: jnlp
     # Use Windows agent image
-    image: jenkins/inbound-agent:windowsservercore-ltsc2019
+    image: ${UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE}
     # Use short working directory to avoid problems with long paths on Windows;
     #  all other containers will use this same working dir as well
     #  and the work folder for the pipeline script will become <WORKINGDIR>/workspace/<jobname>
