@@ -6,7 +6,7 @@ pipeline {
 	    // The PVC must have been created beforehand, outside of Jenkins.
 	    // The PVC ensures that a persistent disk of a given size has been created.
 	    // It enables incremental builds.
-      workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-linux', readOnly: false)
+      workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-linux-k8s', readOnly: false)
 
       yaml """
 metadata:

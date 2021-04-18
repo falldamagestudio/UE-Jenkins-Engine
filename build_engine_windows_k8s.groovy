@@ -6,7 +6,7 @@ pipeline {
 	    // The PVC must have been created beforehand, outside of Jenkins.
 	    // The PVC ensures that a persistent disk of a given size has been created.
 	    // It enables incremental builds.
-      workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-windows', readOnly: false)
+      workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-windows-k8s', readOnly: false)
 
       // Provisioning a new Windows node, fetching the Jenkins Agent image,
       //  fetching the MSVC build tools image, and starting the Jenkins agent is significantly slower
