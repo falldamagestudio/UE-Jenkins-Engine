@@ -14,6 +14,11 @@ pipeline {
 			//  Alternatively you can force image entrypoint to be disabled by adding option `--entrypoint=''`.
 			// The error is benign (the job will continue and will work succrssfully), but confusing.
 			args '--entrypoint=cmd.exe'
+
+      // Use a specific workspace folder, with a shorter folder name (Jenkins will default to C:\J\workspace\build_engine_windows_docker).
+      // Building UE results in some long paths, and paths longer than 260 characters are problematic under Windows.
+      // This shorter custom workspace name minimizes the risk that we'll run into too-long path names.
+      customWorkspace "C:\\W\\Engine-Win64"
 		}
 	}
 
