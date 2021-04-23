@@ -3,7 +3,7 @@ pipeline {
   agent {
 		docker {
       // The entire job will run on one specific node
-			label 'test-vm'
+			label 'build-engine-win64-git-docker'
 
       // All steps will be performed within this container
 			image env.UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE
