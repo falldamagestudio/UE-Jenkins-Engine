@@ -26,13 +26,27 @@ pipeline {
 
     stage('Fetch Git repo dependencies') {
       steps {
-        powershell "cd UE; & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe; if (\${LASTEXITCODE} -ne 0) { throw \"GitDependencies.exe failed\" }"
+        powershell """
+            cd UE
+            & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe
+            if (\${LASTEXITCODE} -ne 0) {
+              Write-Error \"GitDependencies.exe failed\"
+              exit 1
+            }
+          """
       }
     }
 
     stage('Build Engine (Windows)') {
       steps {
-        powershell ".\\Scripts\\Windows\\BuildEngine.ps1"
+        powershell """
+            try {
+              & .\\Scripts\\Windows\\BuildEngine.ps1
+            } catch {
+              Write-Error \$_
+              exit 1
+            }
+          """
       }
     }
 
@@ -58,7 +72,14 @@ pipeline {
 
         withCredentials([[$class: 'FileBinding', credentialsId: 'build-job-gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
 
-          powershell ".\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}"
+          powershell """
+              try {
+                & .\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
+              } catch {
+                Write-Error \$_
+                exit 1
+              }
+            """
         }
       }
     }
