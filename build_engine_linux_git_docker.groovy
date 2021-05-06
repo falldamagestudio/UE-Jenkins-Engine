@@ -12,6 +12,14 @@ pipeline {
 
   stages {
 
+    stage('Patch Git repo contents') {
+      steps {
+          sh """
+              ./Scripts/Linux/ApplyPatches.sh
+            """
+      }
+    }
+
     stage('Fetch Git repo dependencies') {
       steps {
           sh """
