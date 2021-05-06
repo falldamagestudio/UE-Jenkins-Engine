@@ -22,3 +22,4 @@ TARGETSTRING='TOOLCHAIN_CACHE="$([ -d ../.git ] && echo "../.git" || echo "../$(
 
 sed "s:$SOURCESTRING:$TARGETSTRING:" "${UE_LOCATION}/Engine/Build/BatchFiles/Linux/SetupToolchain.sh" > "${UE_LOCATION}/Engine/Build/BatchFiles/Linux/SetupToolchain2.sh"
 mv -f "${UE_LOCATION}/Engine/Build/BatchFiles/Linux/SetupToolchain2.sh" "${UE_LOCATION}/Engine/Build/BatchFiles/Linux/SetupToolchain.sh"
+chmod ugo+x "${UE_LOCATION}/Engine/Build/BatchFiles/Linux/SetupToolchain.sh"
