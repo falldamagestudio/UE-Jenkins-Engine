@@ -16,7 +16,7 @@ pipeline {
       when { expression { false } }
       steps {
           sh """
-              ./Scripts/Linux/ApplyPatches.sh
+              ./Scripts/Linux/BuildSteps/ApplyPatches.sh
             """
       }
     }
@@ -25,15 +25,7 @@ pipeline {
       when { expression { false } }
       steps {
           sh """
-              cd UE
-
-              # Run GitDependencies once, in a mode where diffs are force-overwritten
-              # GitDepedencies will be invoked again by Setup.sh, but then in 'prompt for any changes'
-              #   mode; Jenkins will hang when any user input is requested; by running it once in
-              #   force-overwrite mode first we ensure that there will be no conflicts during the second run
-              ./Engine/Build/BatchFiles/Linux/GitDependencies.sh --force
-
-              ./Setup.sh
+              ./Scripts/Linux/BuildSteps/FetchRepoDependencies.sh
             """
       }
     }
@@ -42,7 +34,7 @@ pipeline {
       when { expression { false } }
       steps {
         sh """
-            ./Scripts/Linux/BuildEngine.sh
+            ./Scripts/Linux/BuildSteps/BuildEngine.sh
           """
       }
     }
@@ -70,7 +62,7 @@ pipeline {
         withCredentials([[$class: 'FileBinding', credentialsId: 'build-job-gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
 
           sh """
-              ./Scripts/Linux/UploadUE.sh ${LONGTAIL_STORE_BUCKET_NAME} ${GIT_COMMIT}
+              ./Scripts/Linux/BuildSteps/UploadUE.sh ${LONGTAIL_STORE_BUCKET_NAME} ${GIT_COMMIT}
             """
         }
       }

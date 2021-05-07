@@ -1,6 +1,8 @@
 #!/bin/bash
 
-UE_LOCATION="`dirname $0`/../../UE"
+ScriptRoot=$(dirname "$0")
+
+UE_LOCATION="${ScriptRoot}/../../../UE"
 
 ############ Patch Engine/Build/BatchFiles/Linux/SetupToolchain.sh ###################
 
