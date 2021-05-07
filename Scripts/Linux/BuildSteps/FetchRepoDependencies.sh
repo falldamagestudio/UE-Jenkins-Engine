@@ -10,6 +10,6 @@ cd ${UELocation}
 # GitDepedencies will be invoked again by Setup.sh, but then in 'prompt for any changes'
 #   mode; Jenkins will hang when any user input is requested; by running it once in
 #   force-overwrite mode first we ensure that there will be no conflicts during the second run
-#./Engine/Build/BatchFiles/Linux/GitDependencies.sh --force
+./Engine/Build/BatchFiles/Linux/GitDependencies.sh --force
 
-#./Setup.sh
+./Setup.sh

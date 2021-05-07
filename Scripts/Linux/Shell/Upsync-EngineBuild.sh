@@ -10,11 +10,11 @@ LongtailLocation="${ScriptRoot}/longtail-linux-x64"
 VersionIndexURI="gs://${CloudStorageBucket}/engine-linux/index/${EngineBuildId}.lvi"
 StorageURI="gs://${CloudStorageBucket}/engine-linux/storage"
 
-# "${LongtailLocation}" \
-#     upsync \
-#     --source-path \
-#     $EngineBuildLocation \
-#     --target-path \
-#     $VersionIndexURI \
-#     --storage-uri \
-#     $StorageURI
+"${LongtailLocation}" \
+    upsync \
+    --source-path \
+    $EngineBuildLocation \
+    --target-path \
+    $VersionIndexURI \
+    --storage-uri \
+    $StorageURI
