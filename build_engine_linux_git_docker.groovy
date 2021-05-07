@@ -13,15 +13,15 @@ pipeline {
   stages {
 
     stage('Patch Git repo contents') {
-      steps {
+/*      steps {
           sh """
               ./Scripts/Linux/ApplyPatches.sh
             """
       }
-    }
+*/    }
 
     stage('Fetch Git repo dependencies') {
-      steps {
+/*      steps {
           sh """
               cd UE
 
@@ -34,15 +34,15 @@ pipeline {
               ./Setup.sh
             """
       }
-    }
+*/    }
 
     stage('Build Engine') {
-      steps {
+/*      steps {
         sh """
             ./Scripts/Linux/BuildEngine.sh
           """
       }
-    }
+*/    }
 
     stage('Upload Engine') {
       steps {
