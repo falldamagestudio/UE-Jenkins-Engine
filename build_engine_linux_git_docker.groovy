@@ -13,16 +13,16 @@ pipeline {
   stages {
 
     stage('Patch Git repo contents') {
-/*      steps {
-          sh """
+      steps {
+/*          sh """
               ./Scripts/Linux/ApplyPatches.sh
             """
-      }
-*/    }
+*/      }
+    }
 
     stage('Fetch Git repo dependencies') {
-/*      steps {
-          sh """
+      steps {
+/*          sh """
               cd UE
 
               # Run GitDependencies once, in a mode where diffs are force-overwritten
@@ -33,16 +33,16 @@ pipeline {
 
               ./Setup.sh
             """
-      }
-*/    }
+*/      }
+    }
 
     stage('Build Engine') {
-/*      steps {
-        sh """
+      steps {
+/*        sh """
             ./Scripts/Linux/BuildEngine.sh
           """
-      }
-*/    }
+*/      }
+    }
 
     stage('Upload Engine') {
       steps {
