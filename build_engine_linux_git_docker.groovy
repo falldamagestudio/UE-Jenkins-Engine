@@ -13,7 +13,6 @@ pipeline {
   stages {
 
     stage('Patch Git repo contents') {
-      when { expression { false } }
       steps {
           sh """
               ./Scripts/Linux/BuildSteps/ApplyPatches.sh
@@ -22,7 +21,6 @@ pipeline {
     }
 
     stage('Fetch Git repo dependencies') {
-      when { expression { false } }
       steps {
           sh """
               ./Scripts/Linux/BuildSteps/FetchRepoDependencies.sh
@@ -31,7 +29,6 @@ pipeline {
     }
 
     stage('Build Engine') {
-      when { expression { false } }
       steps {
         sh """
             ./Scripts/Linux/BuildSteps/BuildEngine.sh
