@@ -11,8 +11,8 @@ UE_LOCATION="${ScriptRoot}/../../../UE"
 # We have UE as a submodule and need to patch that logic
 
 SOURCESTRING='TOOLCHAIN_CACHE=../.git/ue4-sdks/'
-
-TARGETSTRING='TOOLCHAIN_CACHE="$([ -d ../.git ] && echo "../.git" || echo "../$(cat ../.git | cut -d " " -f 2)")/ue4-sdks/"'
+# The ampersands need to be escaped because sed treats them as 'replace with whole source string please' markers otehrwise
+TARGETSTRING='TOOLCHAIN_CACHE="$([ -d ../.git ] \&\& echo "../.git" || echo "../$(cat ../.git | cut -d " " -f 2)")/ue4-sdks/"'
 
 # When UE is a root-level repo, .git will be a folder and then the TOOLCHAIN_CACHE becomes this:
 #   ../.git/ue4-sdks/
