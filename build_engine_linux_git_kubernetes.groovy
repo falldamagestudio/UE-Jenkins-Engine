@@ -86,7 +86,7 @@ spec:
       steps {
         container('ue-jenkins-buildtools-linux') {
           sh """
-              ./Scripts/Linux/BuildEngine.sh
+              ./Scripts/Linux/BuildSteps/BuildEngine.sh
             """
         }
       }
