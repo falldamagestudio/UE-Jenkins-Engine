@@ -20,21 +20,8 @@ pipeline {
     stage('Fetch Git repo dependencies') {
       steps {
         powershell """
-            cd UE
-            & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe
-            if (\${LASTEXITCODE} -ne 0) {
-              Write-Error \"GitDependencies.exe failed\"
-              exit 1
-            }
-          """
-      }
-    }
-
-    stage('Build Engine (Windows)') {
-      steps {
-        powershell """
             try {
-              & .\\Scripts\\Windows\\BuildEngine.ps1
+              & .\\Scripts\\Windows\\BuildSteps\\FetchGitRepoDependencies.ps1
             } catch {
               Write-Error \$_
               exit 1
@@ -43,7 +30,20 @@ pipeline {
       }
     }
 
-    stage('Upload Engine (Windows)') {
+    stage('Build Engine') {
+      steps {
+        powershell """
+            try {
+              & .\\Scripts\\Windows\\BuildSteps\\BuildEngine.ps1
+            } catch {
+              Write-Error \$_
+              exit 1
+            }
+          """
+      }
+    }
+
+    stage('Upload Engine') {
       steps {
 
         // Ensure that any program that uses the GCP Client Library (for example, Longtail) uses
@@ -67,7 +67,7 @@ pipeline {
 
           powershell """
               try {
-                & .\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
+                & .\\Scripts\\Windows\\BuildSteps\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
               } catch {
                 Write-Error \$_
                 exit 1

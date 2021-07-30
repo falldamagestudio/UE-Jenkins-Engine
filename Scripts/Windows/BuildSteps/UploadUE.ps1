@@ -3,9 +3,9 @@ param (
 	[Parameter(Mandatory)] [string] $BuildId
 )
 
-. $PSScriptRoot\Upsync-EngineBuild.ps1
+. ${PSScriptRoot}\..\PowerShell\Upsync-EngineBuild.ps1
 
-$UELocation = "${PSScriptRoot}\..\..\UE"
+$UELocation = "${PSScriptRoot}\..\..\..\UE"
 $EngineBuildLocation = "${UELocation}\LocalBuilds\Engine\Windows"
 $EngineBuildId = "engine-${BuildId}-win64"
 

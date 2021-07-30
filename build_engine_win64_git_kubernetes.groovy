@@ -92,10 +92,10 @@ spec:
       steps {
         container('ue-jenkins-buildtools-windows') {
           powershell """
-              cd UE
-              & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe
-              if (\${LASTEXITCODE} -ne 0) {
-                Write-Error \"GitDependencies.exe failed\"
+              try {
+                & .\\Scripts\\Windows\\BuildSteps\\FetchGitRepoDependencies.ps1
+              } catch {
+                Write-Error \$_
                 exit 1
               }
             """
@@ -108,7 +108,7 @@ spec:
         container('ue-jenkins-buildtools-windows') {
           powershell """
               try {
-                & .\\Scripts\\Windows\\BuildEngine.ps1
+                & .\\Scripts\\Windows\\BuildSteps\\BuildEngine.ps1
               } catch {
                 Write-Error \$_
                 exit 1
@@ -123,7 +123,7 @@ spec:
         container('ue-jenkins-buildtools-windows') {
           powershell """
               try {
-                & .\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
+                & .\\Scripts\\Windows\\BuildSteps\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
               } catch {
                 Write-Error \$_
                 exit 1
