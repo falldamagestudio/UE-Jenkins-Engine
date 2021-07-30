@@ -61,20 +61,46 @@ spec:
 
   stages {
 
+    stage('Patch Git repo contents') {
+      steps {
+        container('ue-jenkins-buildtools-linux') {
+          sh """
+              ./Scripts/Linux/BuildSteps/ApplyPatches.sh
+            """
+        }
+      }
+    }
+
+
     stage('Fetch Git repo dependencies') {
       steps {
         container('ue-jenkins-buildtools-linux') {
-          sh "cd UE && ./Setup.sh"
+          sh """
+              ./Scripts/Linux/BuildSteps/FetchRepoDependencies.sh
+            """
         }
       }
     }
     
-    // stage('Build Engine (Linux)') {
-    //   steps {
-    //     container('ue-jenkins-buildtools-linux') {
-    //       sh "./Scripts/Linux/BuildEngine.sh"
-    //     }
-    //   }
-    // }
+    stage('Build Engine (Linux)') {
+      steps {
+        container('ue-jenkins-buildtools-linux') {
+          sh """
+              ./Scripts/Linux/BuildEngine.sh
+            """
+        }
+      }
+    }
+
+    stage('Upload Engine') {
+      steps {
+        container('ue-jenkins-buildtools-linux') {
+          sh """
+              ./Scripts/Linux/BuildSteps/UploadUE.sh ${LONGTAIL_STORE_BUCKET_NAME} ${GIT_COMMIT}
+            """
+        }
+      }
+    }
+
   }
 }

@@ -91,22 +91,45 @@ spec:
     stage('Fetch Git repo dependencies') {
       steps {
         container('ue-jenkins-buildtools-windows') {
-          powershell "cd UE; & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe; if (\${LASTEXITCODE} -ne 0) { throw \"GitDependencies.exe failed\" }"
+          powershell """
+              cd UE
+              & .\\Engine\\Binaries\\DotNET\\GitDependencies.exe
+              if (\${LASTEXITCODE} -ne 0) {
+                Write-Error \"GitDependencies.exe failed\"
+                exit 1
+              }
+            """
         }
       }
     }
     
-    stage('Build Engine (Windows)') {
+    stage('Build Engine') {
       steps {
         container('ue-jenkins-buildtools-windows') {
-          powershell ".\\Scripts\\Windows\\BuildEngine.ps1"
+          powershell """
+              try {
+                & .\\Scripts\\Windows\\BuildEngine.ps1
+              } catch {
+                Write-Error \$_
+                exit 1
+              }
+            """
         }
       }
     }
 
-    stage('Upload Engine (Windows)') {
+    stage('Upload Engine') {
       steps {
-        powershell ".\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}"
+        container('ue-jenkins-buildtools-windows') {
+          powershell """
+              try {
+                & .\\Scripts\\Windows\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
+              } catch {
+                Write-Error \$_
+                exit 1
+              }
+            """
+        }
       }
     }
 
