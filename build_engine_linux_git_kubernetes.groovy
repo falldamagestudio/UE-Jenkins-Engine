@@ -2,11 +2,16 @@ pipeline {
   agent {
     kubernetes { 
 
+ 
       // The given PersistentVolumeClaim will be mounted where the workspace folder typically is located.
-	    // The PVC must have been created beforehand, outside of Jenkins.
-	    // The PVC ensures that a persistent disk of a given size has been created.
-	    // It enables incremental builds.
-      workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-linux-git-kubernetes', readOnly: false)
+      // The PVC must have been created beforehand, outside of Jenkins.
+      // The PVC ensures that a persistent disk of a given size has been created.
+      // It enables incremental builds.
+      //
+      // The current automation does not offer any means for creating these PVCs. If you want to
+      // take advantage of persistent workspaes for Kubernetes builds, you must create the PVCs yourself.
+      //
+      // workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'build-engine-linux-git-kubernetes', readOnly: false)
 
       yaml """
 metadata:
