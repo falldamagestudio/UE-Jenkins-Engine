@@ -3,35 +3,42 @@ pipeline {
   agent {
 		docker {
       // The entire job will run on one specific node
-			label 'build-engine-linux-git-docker'
+			label 'build-engine-win64-git-dynamic'
 
       // All steps will be performed within this container
-			image env.UE_JENKINS_BUILDTOOLS_LINUX_IMAGE
+			image env.UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE
+
+      // Use a specific workspace folder, with a shorter folder name (Jenkins will default to C:\J\workspace\build_engine_windows_docker).
+      // Building UE results in some long paths, and paths longer than 260 characters are problematic under Windows.
+      // This shorter custom workspace name minimizes the risk that we'll run into too-long path names.
+      customWorkspace "C:\\W\\Engine-Win64"
 		}
 	}
 
   stages {
 
-    stage('Patch Git repo contents') {
-      steps {
-          sh """
-              ./Scripts/Linux/BuildSteps/ApplyPatches.sh
-            """
-      }
-    }
-
     stage('Fetch Git repo dependencies') {
       steps {
-          sh """
-              ./Scripts/Linux/BuildSteps/FetchRepoDependencies.sh
-            """
+        powershell """
+            try {
+              & .\\Scripts\\Windows\\BuildSteps\\FetchGitRepoDependencies.ps1
+            } catch {
+              Write-Error \$_
+              exit 1
+            }
+          """
       }
     }
 
     stage('Build Engine') {
       steps {
-        sh """
-            ./Scripts/Linux/BuildSteps/BuildEngine.sh
+        powershell """
+            try {
+              & .\\Scripts\\Windows\\BuildSteps\\BuildEngine.ps1
+            } catch {
+              Write-Error \$_
+              exit 1
+            }
           """
       }
     }
@@ -58,8 +65,13 @@ pipeline {
 
         withCredentials([[$class: 'FileBinding', credentialsId: 'build-job-gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
 
-          sh """
-              ./Scripts/Linux/BuildSteps/UploadUE.sh ${LONGTAIL_STORE_BUCKET_NAME} ${GIT_COMMIT}
+          powershell """
+              try {
+                & .\\Scripts\\Windows\\BuildSteps\\UploadUE.ps1 -CloudStorageBucket ${LONGTAIL_STORE_BUCKET_NAME} -BuildId ${GIT_COMMIT}
+              } catch {
+                Write-Error \$_
+                exit 1
+              }
             """
         }
       }
