@@ -82,7 +82,7 @@ spec:
       }
     }
     
-    stage('Build Engine (Linux)') {
+    stage('Build Engine') {
       steps {
         container('ue-jenkins-buildtools-linux') {
           sh """
