@@ -1,19 +1,19 @@
 pipeline {
 
   agent {
-		docker {
+    docker {
       // The entire job will run on one specific node
-			label 'build-engine-win64-git-static'
+      label 'build-engine-win64-git-static'
 
       // All steps will be performed within this container
-			image env.UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE
+      image env.UE_JENKINS_BUILDTOOLS_WINDOWS_IMAGE
 
       // Use a specific workspace folder, with a shorter folder name (Jenkins will default to C:\J\workspace\build_engine_windows_docker).
       // Building UE results in some long paths, and paths longer than 260 characters are problematic under Windows.
       // This shorter custom workspace name minimizes the risk that we'll run into too-long path names.
       customWorkspace "C:\\W\\Engine-Win64"
-		}
-	}
+    }
+  }
 
   stages {
 

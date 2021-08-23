@@ -1,14 +1,14 @@
 pipeline {
 
   agent {
-		docker {
+    docker {
       // The entire job will run on one specific node
-			label 'build-engine-linux-git-static'
+      label 'build-engine-linux-git-static'
 
       // All steps will be performed within this container
-			image env.UE_JENKINS_BUILDTOOLS_LINUX_IMAGE
-		}
-	}
+      image env.UE_JENKINS_BUILDTOOLS_LINUX_IMAGE
+    }
+  }
 
   stages {
 
