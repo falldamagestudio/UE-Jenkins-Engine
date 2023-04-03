@@ -7,6 +7,6 @@ param (
 
 $UELocation = "${PSScriptRoot}\..\..\..\UE"
 $EngineBuildLocation = "${UELocation}\LocalBuilds\Engine\Windows"
-$EngineBuildId = "engine-${BuildId}-win64"
+$EngineBuildId = "ue-${BuildId}-win64"
 
 Upsync-EngineBuild -EngineBuildLocation $EngineBuildLocation -CloudStorageBucket $CloudStorageBucket -EngineBuildId $EngineBuildId
