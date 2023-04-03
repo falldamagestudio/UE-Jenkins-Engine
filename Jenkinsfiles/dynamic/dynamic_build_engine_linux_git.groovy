@@ -7,6 +7,16 @@ pipeline {
     }
   }
 
+  environment {
+    // Compute short (but unique) SHA1 hash for repo
+    // We assume that the unique SHA length for the repo is 7
+    // While it is technically possible to execute code as part of the environment block,
+    //  it will be executed both on the controller (on Linux) as well as on the agent (so on Linux/Windows depending on the exact job)
+    // We'd like to do a `git rev-parse --short ${GIT_COMMIT}` but there's no good way to invoke that OS-independently, or to specialize per OS
+    // Alternatively, we could postpone the calculation to the first stage; then it'd only run on the agent
+    GIT_COMMIT_SHORT = "${GIT_COMMIT[0..6]}"
+  }
+
   stages {
 
     stage('Patch Git repo contents') {
