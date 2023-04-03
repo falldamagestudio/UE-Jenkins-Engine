@@ -56,8 +56,11 @@ pipeline {
         withCredentials([[$class: 'FileBinding', credentialsId: 'build-job-gcp-service-account-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS']]) {
 
           sh """
-              ./Scripts/Linux/BuildSteps/UploadUE.sh ${LONGTAIL_STORE_BUCKET_NAME} ${GIT_COMMIT}
+              ./Scripts/Linux/BuildSteps/UploadUE.sh ${LONGTAIL_STORE_BUCKET_NAME} ${GIT_COMMIT_SHORT}
             """
+
+          echo 'Build package ID:'
+          echo "ue-${GIT_COMMIT_SHORT}-linux"
         }
       }
     }
