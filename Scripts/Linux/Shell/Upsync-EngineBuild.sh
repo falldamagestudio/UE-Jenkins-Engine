@@ -7,7 +7,7 @@ EngineBuildId="$3"
 ScriptRoot=$(dirname "$0")
 
 LongtailLocation="${ScriptRoot}/longtail-linux-x64"
-VersionJsonURI="gs://${CloudStorageBucket}/engine-linux/${EngineBuildId}.json"
+VersionJsonURI="gs://${CloudStorageBucket}/ue-linux/${EngineBuildId}.json"
 
 "${LongtailLocation}" \
     put \

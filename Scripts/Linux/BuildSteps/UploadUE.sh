@@ -7,6 +7,6 @@ ScriptRoot=$(dirname "$0")
 
 UELocation="${ScriptRoot}/../../../UE"
 EngineBuildLocation="${UELocation}/LocalBuilds/Engine/Linux"
-EngineBuildId="engine-${BuildId}-linux"
+EngineBuildId="ue-${BuildId}-linux"
 
 "${ScriptRoot}/../Shell/Upsync-EngineBuild.sh" "$EngineBuildLocation" "$CloudStorageBucket" "$EngineBuildId"
